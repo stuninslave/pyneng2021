@@ -16,3 +16,11 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+octet1=bin(int((mac.split(':')[0]),16))
+octet2=bin(int((mac.split(':')[1]),16))
+octet3=bin(int((mac.split(':')[2]),16))
+print(octet1[2:]+octet2[2:]+octet3[2:])
+
+
+
+

@@ -26,3 +26,12 @@
 """
 
 ip = "192.168.3.1"
+octet1=int(ip.split('.')[0])
+octet2=int(ip.split('.')[1])
+octet3=int(ip.split('.')[2])
+octet4=int(ip.split('.')[3])
+print(f'''
+{octet1:<8}  {octet2:<8}  {octet3:<8}  {octet4:<8}
+{octet1:08b}  {octet2:08b}  {octet3:08b}  {octet4:08b}
+'''
+)
