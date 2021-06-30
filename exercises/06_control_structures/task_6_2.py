@@ -12,3 +12,23 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+ip_addr=input('Введите IP address? ')
+
+
+octet1=int(ip_addr.split('.')[0])
+octet2=int(ip_addr.split('.')[1])
+octet3=int(ip_addr.split('.')[2])
+octet4=int(ip_addr.split('.')[3])
+
+if octet1 >= 0:
+    if (octet1==octet2==octet3==octet4==0):
+        print('unassigned')
+    elif octet1 <=223:
+        print('unicast')
+    elif octet1 <=239:
+        print('multicast')
+    elif octet1<=255 and (octet2<octet1 or octet3< octet1 or octet4<octet1):
+        print('unused')
+    elif octet1==octet2==octet3==octet4==255:
+        print('local broadcast')
