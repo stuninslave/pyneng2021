@@ -17,3 +17,21 @@
 """
 
 ignore = ["duplex", "alias", "configuration"]
+
+from sys import argv
+
+filename=argv[1]
+dst_filename=argv[2]
+
+with open(filename,'r') as src, open(dst_filename,'w') as dst:
+    for line in src:
+        if line.startswith('!'):
+            continue
+        else:
+            ignored=False
+            for command in ignore:
+                if command in line:
+                    ignored=True
+                    break
+            if ignored==False:
+                dst.write(line)
