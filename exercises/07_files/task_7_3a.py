@@ -23,3 +23,23 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+with open('CAM_table.txt','r') as f:
+
+    outputdict={}
+    for line in f:
+        printline=line.rstrip().split()
+
+        if len(printline)==4 and printline[0][0].isdigit():
+            printline.pop(-2)
+            #print(printline)
+            outputdict.setdefault(int(printline[0]),[])
+            outputdict[int(printline[0])].append(printline)
+            sorteddict=sorted(outputdict)
+
+    for key in sorteddict:
+        for i in range(len(outputdict[key])):
+            print(f'{outputdict[key][i][0]:<8}{outputdict[key][i][1]:<20}{outputdict[key][i][2]:<8}')
+
+
+
+
