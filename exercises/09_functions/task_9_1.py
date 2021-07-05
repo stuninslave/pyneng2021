@@ -64,6 +64,23 @@ access_config_2 = {
     "FastEthernet0/09": 107,
 }
 
+access_vlans_mapping = {
+            "FastEthernet0/1": 101,
+            "FastEthernet0/4": 121,
+        }
+template_access_mode = [
+            "switchport mode access",
+            "switchport access vlan",
+        ]
+correct_return_value = [
+            "interface FastEthernet0/1",
+            "switchport mode access",
+            "switchport access vlan 101",
+            "interface FastEthernet0/4",
+            "switchport mode access",
+            "switchport access vlan 121",
+        ]
+
 
 def generate_access_config(intf_vlan_mapping, access_template):
     """
@@ -74,4 +91,37 @@ def generate_access_config(intf_vlan_mapping, access_template):
     access_template - список команд для порта в режиме access
 
     Возвращает список всех портов в режиме access с конфигурацией на основе шаблона
+
+   access_vlans_mapping = {
+            "FastEthernet0/1": 101,
+            "FastEthernet0/4": 121,
+        }
+        template_access_mode = [
+            "switchport mode access",
+            "switchport access vlan",
+        ]
+        correct_return_value = [
+            "interface FastEthernet0/1",
+            "switchport mode access",
+            "switchport access vlan 101",
+            "interface FastEthernet0/4",
+            "switchport mode access",
+            "switchport access vlan 121",
+        ]
+
     """
+    result=[]
+    for intf in intf_vlan_mapping:
+        #print('interface '+intf)
+        result.append('interface ' + intf)
+        for command in access_template:
+            if command.endswith('vlan'):
+                result.append((f'{command} {intf_vlan_mapping[intf]}'))
+            else:
+                result.append(command)
+
+    print(result)
+    return(result)
+
+generate_access_config(access_config, access_mode_template)
+generate_access_config(access_vlans_mapping,template_access_mode)

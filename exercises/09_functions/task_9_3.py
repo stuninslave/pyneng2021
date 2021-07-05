@@ -23,3 +23,34 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+def get_int_vlan_map(config_filename):
+    access_ports={}
+    trunk_ports={}
+    with open(config_filename, 'r') as file:
+
+        for line in file:
+
+            if line.startswith('interface'):
+
+                key=line.rstrip().split()[-1] #remember KEY for dict
+
+            elif 'switchport trunk allowed' in line:
+
+                digit_vlan_list=[int(item) for item in line.rstrip().split()[-1].split(',')]
+                trunk_ports.setdefault(key)
+                trunk_ports[key]=digit_vlan_list           #write list of trunk allowed vlans to KEY
+
+            elif 'switchport access vlan' in line:
+                access_vlan=int(line.rstrip().split()[-1])
+                access_ports.setdefault(key)
+                access_ports[key]=access_vlan                 #write access vlan with KEY
+
+
+    #print(access_ports)
+    #print(trunk_ports)
+    result=tuple()
+    result=(access_ports,trunk_ports)
+    return(result)
+
+get_int_vlan_map('config_sw1.txt')
