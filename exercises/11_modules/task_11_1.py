@@ -35,6 +35,7 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 """
 
 
+
 def parse_cdp_neighbors(command_output):
     """
     Тут мы передаем вывод команды одной строкой потому что именно в таком виде будет
@@ -44,7 +45,25 @@ def parse_cdp_neighbors(command_output):
     Плюс учимся работать с таким выводом.
     """
 
-
+    list_config=command_output.strip().split('\n')
+    result={}
+    for line in list_config:
+        if '>' in line:
+            hostname=line.split('>')[0]
+            #print(hostname)
+        if '/' in line:
+            #print(line)
+            #print(line.split())
+            key=tuple()
+            value=tuple()
+            key=(hostname, line.split()[1]+line.split()[2])
+            value=(line.split()[0],line.split()[-2]+line.split()[-1])
+            #print(key, value)
+            result.setdefault(key)
+            result[key]=value
+            #print(result)
+    return(result)
 if __name__ == "__main__":
     with open("sh_cdp_n_sw1.txt") as f:
         print(parse_cdp_neighbors(f.read()))
+
