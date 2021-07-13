@@ -72,6 +72,20 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
+Пример словаря:
+{
+    ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
+    ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
+    ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
+    ("R3", "Eth0/0"): ("SW1", "Eth0/3"),
+    ("R3", "Eth0/1"): ("R4", "Eth0/0"),
+    ("R3", "Eth0/2"): ("R5", "Eth0/0"),
+    ("SW1", "Eth0/1"): ("R1", "Eth0/0"),
+    ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
+    ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
+    ("SW1", "Eth0/5"): ("R6", "Eth0/1"),
+}
+
 """
 
 infiles = [
@@ -80,3 +94,28 @@ infiles = [
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+from draw_network_graph import draw_topology
+from task_11_2 import create_network_map
+
+#draw_topology(create_network_map(infiles))
+
+def unique_network_map(topology_dict):
+    unique_topology_dict=topology_dict.copy()
+    #print(unique_topology_dict)
+    deleted_dict={}
+    for unique_key in topology_dict:
+        for key, value in topology_dict.items():
+            if unique_key==value and deleted_dict.get(unique_key)==None:
+               # print (unique_topology_dict[key])
+                print(deleted_dict.get(unique_key))
+                deleted_dict.setdefault(unique_topology_dict[key])
+                deleted_dict[unique_topology_dict[key]]='deleted'
+                # print(deleted_dict)
+                del unique_topology_dict[key]
+                #print(deleted_dict.get(unique_key))
+    print(deleted_dict)
+    #print(unique_topology_dict)
+    return(unique_topology_dict)
+
+draw_topology(unique_network_map(create_network_map(infiles)))
