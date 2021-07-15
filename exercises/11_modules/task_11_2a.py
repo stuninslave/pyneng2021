@@ -101,21 +101,12 @@ from task_11_2 import create_network_map
 #draw_topology(create_network_map(infiles))
 
 def unique_network_map(topology_dict):
-    unique_topology_dict=topology_dict.copy()
-    #print(unique_topology_dict)
-    deleted_dict={}
-    for unique_key in topology_dict:
-        for key, value in topology_dict.items():
-            if unique_key==value and deleted_dict.get(unique_key)==None:
-               # print (unique_topology_dict[key])
-                print(deleted_dict.get(unique_key))
-                deleted_dict.setdefault(unique_topology_dict[key])
-                deleted_dict[unique_topology_dict[key]]='deleted'
-                # print(deleted_dict)
-                del unique_topology_dict[key]
-                #print(deleted_dict.get(unique_key))
-    print(deleted_dict)
-    #print(unique_topology_dict)
+    unique_topology_dict={}
+    for key, value in topology_dict.items():
+        if  unique_topology_dict.get(value)==None:
+            unique_topology_dict.setdefault(key)
+            unique_topology_dict[key]=value
+
     return(unique_topology_dict)
 
 draw_topology(unique_network_map(create_network_map(infiles)))
