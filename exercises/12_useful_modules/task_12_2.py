@@ -34,3 +34,24 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+import ipaddress
+
+ranges=['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
+
+def convert_ranges_to_ip_list(ranges_list):
+    """
+    docs string
+    """
+    result=[]
+    for ip_range in ranges_list:
+        try:
+            ipaddress.ip_network(ip_range)
+            print(ip_range,'correct ip')
+        except ValueError:
+            ip_range.split()
+            print(ip_range, 'not correct ip')
+
+    return(True)
+
+convert_ranges_to_ip_list(ranges)
+
