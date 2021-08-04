@@ -36,22 +36,31 @@
 """
 import ipaddress
 
-ranges=['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
+ranges = ['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
 
 def convert_ranges_to_ip_list(ranges_list):
     """
     docs string
     """
-    result=[]
+    result = []
     for ip_range in ranges_list:
         try:
             ipaddress.ip_network(ip_range)
-            print(ip_range,'correct ip')
+            # print(ip_range,'correct ip')
+            result.append(ip_range)
         except ValueError:
-            ip_range.split()
-            print(ip_range, 'not correct ip')
-
-    return(True)
+            # print(ip_range, 'not correct ip')
+            # print(ip_range.split('-'))
+            ip_addr = ip_range.split('-')[0] #str type
+            ip_addr_last_octet=ip_range.split('-')[-1].split('.')[-1]
+            # print('ip_addr=',ip_addr)
+            # print('ip_addr_last_octet=',ip_addr_last_octet)
+            for last_octet in range(int(ip_addr.split('.')[-1]),int(ip_addr_last_octet)+1):
+                modified_ip=ip_addr.split('.')
+                modified_ip[-1]=str(last_octet)
+                ip_to_append='.'.join(modified_ip)
+                result.append(ip_to_append)
+    # print('result=',result)
+    return(result)
 
 convert_ranges_to_ip_list(ranges)
-
