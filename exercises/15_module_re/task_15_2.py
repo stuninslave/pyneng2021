@@ -21,3 +21,17 @@
 Проверить работу функции на примере файла sh_ip_int_br.txt.
 
 """
+import re
+
+def parse_sh_ip_int_br(filename):
+    regex = r'(?P<intf>\w+\S+) \s+ (?P<ip>\S+) \s+\w+\s+\w+\s+(?P<status>\w+\s?\w+)\s+(?P<protocol>\w+)'
+    result=[]
+    with open(filename) as file:
+        for line in file:
+            match=re.search(regex,line)
+            if match:
+                result.append(match.groups())
+
+    return(result)
+
+parse_sh_ip_int_br('sh_ip_int_br.txt')
