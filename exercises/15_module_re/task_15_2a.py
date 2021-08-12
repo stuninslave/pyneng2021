@@ -34,3 +34,12 @@ data = [
     ("R2", "15.2(2)T1", "Cisco 2911"),
     ("SW1", "12.2(55)SE9", "Cisco WS-C2960-8TC-L"),
 ]
+
+
+def convert_to_dict(keys,tuples):
+    result=[]
+    for t in tuples:
+        result.append(dict(zip(keys,t)))
+
+    return(result)
+convert_to_dict(headers,data)
