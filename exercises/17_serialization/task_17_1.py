@@ -35,7 +35,8 @@ sw2_dhcp_snooping.txt, sw3_dhcp_snooping.txt.
 def write_dhcp_snooping_to_csv(filenames,output):
     for filename in filenames:
         with open(filename,'r', encoding='utf-8') as f:
+            #  записть в переменную имя свича
             for line in f:
-                #  Распарсить строку конфига по regexp в лист.
-                # дописать распарсенную строку в список списков
+                # Распарсить строку конфига по regexp в лист.
+                # дописать распарсенную строку в список списков с указанием имени свича
     #экспорт списка списков в CSV
